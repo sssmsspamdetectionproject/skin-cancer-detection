@@ -13,6 +13,7 @@ classes = ['benign', 'malignant']
 def load_model(model_path):
     try:
         model = YOLO(model_path)
+        st.success("Model loaded successfully!")
     except Exception as e:
         st.error(f"Failed to load model: {e}")
         return None
@@ -32,12 +33,12 @@ def detect_and_plot(image, model):
         rect = patches.Rectangle((x1, y1), x2-x1, y2-y1, linewidth=2, edgecolor='r', facecolor='none')
         ax.add_patch(rect)
         plt.text(x1, y1, f"{classes[int(cls)]} {conf:.2f}", color='white', fontsize=12, backgroundcolor='red')
-        
-    plt.axis('on')
+
+    plt.axis('off')
     
     # Save the plot to a BytesIO object to display in Streamlit
     buf = io.BytesIO()
-    plt.savefig(buf, format='png')
+    plt.savefig(buf, format='png', bbox_inches='tight', pad_inches=0)
     buf.seek(0)
     plt.close(fig)
     
@@ -52,12 +53,10 @@ uploaded_image = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "pn
 
 if uploaded_image is not None:
     # Open and display the image using PIL
-    image = Image.open(uploaded_image)
-
-    # Convert the image to RGB
-    image = image.convert('RGB')
-
-    image = image.resize((800, 800))
+    image = Image.open(uploaded_image).convert('RGB')
+    
+    # Optionally resize image for better display
+    image = image.resize((640, 640))
     
     st.image(image, caption='Uploaded Image', use_column_width=True)
 
