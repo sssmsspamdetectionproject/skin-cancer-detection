@@ -26,10 +26,16 @@ def detect_and_plot(image, model):
     fig, ax = plt.subplots(figsize=(8, 8))
     ax.imshow(image)
     
-    for detection in results.boxes:
+    # Find the most confident detection
+    if len(results.boxes) > 0:
+        max_conf_idx = np.argmax(results.boxes.conf.cpu().numpy())
+        detection = results.boxes[max_conf_idx]
+        
         x1, y1, x2, y2 = detection.xyxy[0].cpu().numpy()
         conf = detection.conf[0].cpu().numpy()
         cls = detection.cls[0].cpu().numpy()
+        
+        # Draw rectangle and label for the most confident detection
         rect = patches.Rectangle((x1, y1), x2-x1, y2-y1, linewidth=2, edgecolor='r', facecolor='none')
         ax.add_patch(rect)
         plt.text(x1, y1, f"{classes[int(cls)]} {conf:.2f}", color='white', fontsize=12, backgroundcolor='red')
