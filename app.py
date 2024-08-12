@@ -62,7 +62,7 @@ if uploaded_image is not None:
     image = Image.open(uploaded_image).convert('RGB')
     
     # Optionally resize image for better display
-    image = image.resize((640, 640))
+    #image = image.resize((640, 640))
     
     st.image(image, caption='Uploaded Image', use_column_width=True)
 
