@@ -59,15 +59,15 @@ uploaded_image = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "pn
 
 if uploaded_image is not None:
     # Open and display the image using PIL
-    #image = Image.open(uploaded_image).convert('RGB')
+    image = Image.open(uploaded_image).convert('RGB')
     
     # Optionally resize image for better display
     #image = image.resize((640, 640))
     
-    st.image(uploaded_image, caption='Uploaded Image', use_column_width=True)
+    st.image(image, caption='Uploaded Image', use_column_width=True)
 
     # Convert PIL image to a format suitable for YOLO model
-    image_np = np.array(uploaded_image)
+    image_np = np.array(image)
     
     # Load the YOLO model
     model_path = 'Skin_Cancer_Detection_YoloV8m640_Model.pt'  # Update this path to your model
