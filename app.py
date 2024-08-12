@@ -7,7 +7,7 @@ from ultralytics import YOLO
 import io
 
 # Define the classes
-classes = ['Fracture']
+classes = ['benign', 'malignant']
 
 # Function to load the YOLO model
 def load_model(model_path):
@@ -44,7 +44,7 @@ def detect_and_plot(image, model):
     return buf
 
 # Streamlit app setup
-st.set_page_config(page_title="Bone Fracture Detection", layout="centered")
+st.set_page_config(page_title="Skin Cancer Detection", layout="centered")
 st.markdown("<h1 style='text-align: center; color: #FF0800;'>Bone Fracture Detection</h1>", unsafe_allow_html=True)
 
 st.subheader("Upload Image")
@@ -53,19 +53,17 @@ uploaded_image = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "pn
 if uploaded_image is not None:
     # Open and display the image using PIL
     image = Image.open(uploaded_image)
-    # Resize the image to 350x350 pixels
-    image = image.resize((350, 350))
-   
-      # Convert the image to RGB
+
+    # Convert the image to RGB
     image = image.convert('RGB')
     
-    st.image(image, caption='Uploaded Image (Resized to 350x350)', use_column_width=True)
+    st.image(image, caption='Uploaded Image', use_column_width=True)
 
     # Convert PIL image to a format suitable for YOLO model
     image_np = np.array(image)
     
     # Load the YOLO model
-    model_path = 'Bone_Fracture_Detection_YoloV8m_Model.pt'  # Update this path to your model
+    model_path = 'Skin_Cancer_Detection_YoloV8m_Model.pt'  # Update this path to your model
     model = load_model(model_path)
     
     if model is not None:
