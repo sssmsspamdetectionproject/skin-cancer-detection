@@ -21,9 +21,18 @@ def load_model(model_path):
 
 # Function to perform detection and plot results
 def detect_and_plot(image, model):
-    results = model.predict(image)[0]
+    results = model.predict(image)
+    #[0]
+    # Run prediction
+    #results = model('path/to/image.jpg')  # Replace with your source
+
+    # Convert results image to PIL Image for Streamlit
+    annotated_img = Image.fromarray(results[0].plot()[..., ::-1])  # Convert BGR to RGB
+
+    # Display the image in Streamlit
+    st.image(annotated_img, caption='Annotated Image')
     
-    fig, ax = plt.subplots(figsize=(8, 8))
+    """fig, ax = plt.subplots(figsize=(8, 8))
     ax.imshow(image)
     
     # Find the most confident detection
@@ -48,7 +57,7 @@ def detect_and_plot(image, model):
     buf.seek(0)
     plt.close(fig)
     
-    return buf
+    return buf"""
 
 # Streamlit app setup
 st.set_page_config(page_title="Skin Cancer Detection", layout="centered")
@@ -75,7 +84,8 @@ if uploaded_image is not None:
     
     if model is not None:
         # Perform detection and get the result plot
-        result_plot = detect_and_plot(image_np, model)
+        #result_plot = 
+        detect_and_plot(image_np, model)
         
         # Display the result plot in Streamlit
-        st.image(result_plot, caption='Detection Results')
+        #st.image(result_plot, caption='Detection Results')
