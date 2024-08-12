@@ -33,7 +33,7 @@ def detect_and_plot(image, model):
         ax.add_patch(rect)
         plt.text(x1, y1, f"{classes[int(cls)]} {conf:.2f}", color='white', fontsize=12, backgroundcolor='red')
         
-    plt.axis('off')
+    plt.axis('on')
     
     # Save the plot to a BytesIO object to display in Streamlit
     buf = io.BytesIO()
@@ -45,7 +45,7 @@ def detect_and_plot(image, model):
 
 # Streamlit app setup
 st.set_page_config(page_title="Skin Cancer Detection", layout="centered")
-st.markdown("<h1 style='text-align: center; color: #FF0800;'>Bone Fracture Detection</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center; color: #FF0800;'>Skin Cancer Detection</h1>", unsafe_allow_html=True)
 
 st.subheader("Upload Image")
 uploaded_image = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
@@ -56,6 +56,8 @@ if uploaded_image is not None:
 
     # Convert the image to RGB
     image = image.convert('RGB')
+
+    image = image.resize((800, 800))
     
     st.image(image, caption='Uploaded Image', use_column_width=True)
 
