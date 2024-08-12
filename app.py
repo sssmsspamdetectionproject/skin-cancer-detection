@@ -64,7 +64,7 @@ if uploaded_image is not None:
     # Optionally resize image for better display
     #image = image.resize((640, 640))
     
-    st.image(image, caption='Uploaded Image', use_column_width=True)
+    st.image(uploaded_image, caption='Uploaded Image', use_column_width=True)
 
     # Convert PIL image to a format suitable for YOLO model
     image_np = np.array(uploaded_image)
