@@ -33,7 +33,7 @@ def detect_and_plot(image, model):
         ax.add_patch(rect)
         plt.text(x1, y1, f"{classes[int(cls)]} {conf:.2f}", color='white', fontsize=12, backgroundcolor='red')
         
-    plt.axis('off')
+    plt.axis('on')
     
     # Save the plot to a BytesIO object to display in Streamlit
     buf = io.BytesIO()
