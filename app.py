@@ -68,7 +68,7 @@ uploaded_image = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "pn
 
 if uploaded_image is not None:
     # Open and display the image using PIL
-    image = Image.open(uploaded_image).convert('RGB')
+    image = Image.open(uploaded_image)#.convert('RGB')
     
     # Optionally resize image for better display
     #image = image.resize((640, 640))
